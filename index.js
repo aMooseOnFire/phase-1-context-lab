@@ -1,5 +1,75 @@
 /* Your Code Here */
 
+const createEmployeeRecord = function (arr) {
+    return {
+      firstName: arr[0],
+      familyName: arr[1],
+      title: arr[2],
+      payPerHour: arr[3],
+      timeInEvents: [],
+      timeOutEvents: []
+    }
+  }
+
+const createEmployeeRecords = function (employeeData) {
+    return employeeData.map((eachData) => {
+    return createEmployeeRecord(eachData);
+    })
+  }
+
+const createTimeInEvent = function (timeStamp) {
+    const timeArray = timeStamp.split(' ');
+  
+    this.timeInEvents.push({
+      type: 'TimeIn',
+      hour: parseInt(timeArray[1]),
+      date: timeArray[0]
+    })
+  
+    return this;
+  }
+
+const createTimeOutEvent = function (timeStamp) {
+    const timeArray = timeStamp.split(' ');
+  
+    this.timeOutEvents.push({
+      type: 'TimeOut',
+      hour: parseInt(timeArray[1]),
+      date: timeArray[0]
+    })
+  
+    return this;
+  }
+
+const hoursWorkedOnDate = function (givenDate) {
+    const timeIn = this.timeInEvents.find((e) => {
+      return e.date === givenDate;
+    });
+  
+    const timeOut = this.timeOutEvents.find((e) => {
+      return e.date === givenDate;
+    });
+  
+    return (timeOut.hour - timeIn.hour) / 100;
+  }
+
+const wagesEarnedOnDate = function (givenDate) {
+    const totalHoursWorked = hoursWorkedOnDate.call(this, givenDate)
+    return totalHoursWorked * this.payPerHour;
+  }
+
+const calculatePayroll = function (employeeRecords) {
+    return employeeRecords.reduce((sum, employee) => {
+      return sum + allWagesFor.call(employee);
+    }, 0);
+  }
+
+ const findEmployeeByFirstName = function (employees, firstNameString) {
+    return employees.find((employee) => {
+      return employee.firstName === firstNameString;
+    })
+  }
+
 /*
  We're giving you this function. Take a look at it, you might see some usage
  that's new and different. That's because we're avoiding a well-known, but
